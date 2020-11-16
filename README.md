@@ -4,7 +4,7 @@
 
 The overall concept:
 
-1. How to setup your RPi4, out of the box, for MQTT in your house.
+1. [How to setup your RPi4](setup-rpi4.md), out of the box, for MQTT in your house.
 
 1. How to hack a Particle.io (as an exemplar) to become an MQTT publisher to your local RPi4
 
