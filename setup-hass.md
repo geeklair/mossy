@@ -8,6 +8,9 @@ It's power is two fold.  First, it has "integrations" that link HASS to every ki
 
 It is possible to get a RPi4 image from Home Assitant that includes the OS *and* all the HASS software in one image.  That seems like cheating.  It also makes it harder to know what is being installed where, and how your platform was modified.  So for this path, we choose the install-hass-by-hand method.
 
+As one tinker put it "I tried Hassbian and HASS.IO 3, but they left me feeling like I had taken over someone else’s computer after they’d installed, deleted, modified, and configured the OS and applications ... not a good place to start. I finally decided to load Raspbian, and HA myself, and that has worked well for me."
+
+
 ### Update your RPi4
 
 The first step, is to update all your packages.  The core RPi OS that you installed probably has dozens of packages that can be updated, and should be updated for security reasons.
