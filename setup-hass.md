@@ -18,6 +18,12 @@ The first step, is to update all your packages.  The core RPi OS that you instal
 	
 Ok.... that might take quite a while, but will give you a very up-to-date system.
 
+Next, we have to fix the crazy oversight by the Debians that Emacs is not installed by default.
+
+	sudo apt-get install emacs
+
+Ok, now the world is better, and the remaining work can be started.
+
 ## Follow These Instructions
 
 There are some excellent command line instructions for [installing HASS by hand](https://www.home-assistant.io/docs/installation/raspberry-pi/).
