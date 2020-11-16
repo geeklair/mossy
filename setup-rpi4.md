@@ -4,7 +4,7 @@
 
 ### Burn the OS Image onto a uSD
 
-![](images/IMG_0926.jpg)
+![](images/rpi4-board.jpg)
 
 Download the Raspberry Pi OS with desktop and recommended software:
 	[buster-image](https://downloads.raspberrypi.org/raspios_full_armhf/images/raspios_full_armhf-2020-08-24/2020-08-20-raspios-buster-armhf-full.zip)
