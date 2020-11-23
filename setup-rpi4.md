@@ -142,6 +142,30 @@ You can then pick a name like `fred` or `superpi` or `pi-o-rama`.  Be careful of
 
 The config script will then reboot the node, and you can log in via ssh to new machine name, for example: `ssh pi@fred.local`
 
+## Install Docker
+
+Start with this:
+
+	sudo apt-get update
+	sudo apt-get upgrade -y
+	
+Then go make some coffee.  It will take a while to upgrade everything. Mine took 13 minutes. 
+
+It would be good to refresh your system after all the hard work.
+
+	sudo reboot
+	
+Log back in with ssh, then do the actual docker install.  There was a small problem with Docker on Debian Buster (Raspberry Pi OS).  The `sed` bits below work around the problem and were taken from [This Web Page](https://www.raspberrypi.org/forums/viewtopic.php?t=243691).
+
+	sudo curl -sL get.docker.com | sed 's/9)/10)/' | sh
+	sudo usermod -aG docker pi
+	exit
+	
+Then log back in with ssh, and test the configs.
+
+	sudo docker run hello-world
+
+
 ## Install MOSQUITTO 
 
 The instructions below were taken from [This Web Page](https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/). 
