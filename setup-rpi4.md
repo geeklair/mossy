@@ -142,9 +142,15 @@ You can then pick a name like `fred` or `superpi` or `pi-o-rama`.  Be careful of
 
 The config script will then reboot the node, and you can log in via ssh to new machine name, for example: `ssh pi@fred.local`
 
-## Install Docker
+### Update the Basic OS
 
-Start with this:
+Next, we have to fix the crazy oversight by the Debians that Emacs is not installed by default.
+
+	sudo apt-get install emacs
+
+Ok, now the world is better, and the remaining work can be started.
+
+The next step, is to update all your packages. The core RPi OS that you installed probably has dozens of packages that can be updated, and should be updated for security reasons, and bring you to the most stable version.
 
 	sudo apt-get update
 	sudo apt-get upgrade -y
@@ -154,6 +160,10 @@ Then go make some coffee.  It will take a while to upgrade everything. Mine took
 It would be good to refresh your system after all the hard work.
 
 	sudo reboot
+
+## Install Docker
+
+
 	
 Log back in with ssh, then do the actual docker install.  There was a small problem with Docker on Debian Buster (Raspberry Pi OS).  The `sed` bits below work around the problem and were taken from [This Web Page](https://www.raspberrypi.org/forums/viewtopic.php?t=243691).
 
@@ -222,7 +232,42 @@ Ok.  Now looking over in the `subscribe` window, you will see the data arrive:
 	Client mosqsub|1568-greentea sending PINGREQ
 	Client mosqsub|1568-greentea received PINGRESP
 	
-There you have it.  You have a RPi4 running MQTT and ready for the next steps.  You can close your terminal windows.
+There you have it.  You have a RPi4 running MQTT and ready for the next steps.  
+
+
+## Setup Home Assistant
+
+[Home Assistant](https://www.home-assistant.io) calls itself a "*Open source home automation that puts local control and privacy first. Powered by a worldwide community of tinkerers and DIY enthusiasts. Perfect to run on a Raspberry Pi or a local server.*"
+
+It's power is two fold.  First, it has "integrations" that link HASS to every kind of web server and smart device imaginable.  Second, it is running locally, in your house.  If your Internet goes down, all of your local automations continue to work just fine. 
+
+### Install HASS
+
+It is possible to get a RPi4 image from Home Assitant that includes the OS *and* all the HASS software in one image.  That seems like cheating.  It also makes it harder to know what is being installed where, and how your platform was modified.  So for this path, we choose the install-hass-by-hand method.
+
+As one tinker put it "I tried Hassbian and HASS.IO 3, but they left me feeling like I had taken over someone else’s computer after they’d installed, deleted, modified, and configured the OS and applications ... not a good place to start. I finally decided to load Raspbian, and HA myself, and that has worked well for me."
+
+The good news is that HASS runs in a Docker container, so with Docker now working, we can use the Home Assistant instructions on how to [install the HASS Docker](https://www.home-assistant.io/docs/installation/docker/).  The instructions below give the RPi4 highlights.
+
+If you have maybe tinkered with installing HASS with Docker before, you can remove it and clean things up before trying again:
+
+		docker stop home-assistant
+		docker rm home-assistant
+		
+Then you can pull a stable version for RPi4:
+
+		docker pull homeassistant/home-assistant:stable
+		
+And finally, it's time to run!  Make sure you select the right timezone.  I put my HASS files in a special directory in the `pi` account.  Also, the `restart` command below will let the Docker container always run, even between reboots.
+
+		docker run --restart=always --init -d --name="home-assistant" -e "TZ=America/Chicago" -v /home/pi/hass-files:/config --net=host homeassistant/raspberrypi4-homeassistant:stable
+
+
+Ok, now from your host macbook, it is time to log into Home Assistant and configure it.  Fire up your web browswer and head over to your Pi's IP address on port 8123.  So for me, that's `http://greentea.local:8123`
+
+Once you attach, you should see the Home Assistant login page and you can create an account! 
+
+
 
 
 
